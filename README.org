@@ -43,7 +43,6 @@ Paket installieren:
 pip install -e .
 #+END_SRC
 
-
 * Usage Example
 
 #+BEGIN_SRC python
@@ -85,9 +84,24 @@ Es wurden zwei Hilfsklassen implementiert. Diese hatte ich im Wesentlichen schon
 
 ** Wie ist die Laufzeit Ihres Programms ?
 
+O(n log n) + O(N).
 
+Dabei ist der logarithmische Term dazu da, die Liste zu sortieren. Wie erwähnt, wir eine
+Python-Liste genutzt, von daher macht die  Annahme von O(n log n) Sinn. Der O(N) Term rührt vom
+Iterieren durch die Liste her.
 
 ** Wie kann die Robustheit sichergestellt werden, vor allem auch mit Hinblick auf sehr gro​ß​e Eingaben ?
+
+- sehr gro​ß​e Eingaben: Nimmt man an, daß die Daten von Platte gelesen werden, dann kann man einen
+  Fileiterator verwenden. Dann muß man nicht annhemen, daß die Daten in den Speicher passen.
+  Außerdem erscheint mir das Problem kommutativ zu sein, das bedeutet, es
+  wäre parallelisierbar (MapReduce o.ä.).  
+
+- Für den Stack: Im worst case überlappt kein Element mit dem nächsten. Das heisst jedes Element
+  wird auf den Stack gepusht. Der Algorithmus schaut aber lediglich das Top-Element an (s. 3(i) und
+  3(ii)). Damit kein Overflow stattfindet, kann man Zwischenergebnisse persistieren. Eine einfache Möglichkeit wäre
+  über einen Push-Counter, der ein Speichermethode triggert.  
+
 ** Wie verhält sich der Speicherverbrauch ihres Programms ?
 
 
@@ -107,8 +121,23 @@ Es wurden zwei Hilfsklassen implementiert. Diese hatte ich im Wesentlichen schon
 #        update stack top with the ending  time of current interval.
 # 4. At the end stack contains the merged intervals. 
 
-
+ Ohne irgendwelche Optimierungen, also so wie in der momentanen Version benötigt man O(n) im Worst
+ case für den Stack und nochmals O(n) für die Eingabedaten. 
 
 * Liste von TODOs:
 
-Ich wollte schnel
+Es fehlen einige Punkte zur "Professionlisierung", mindestens folgende Dinge 
+
+- Die obige Antwort verlangt das Nutzen von setuptools, es wird kein Build-Tool benutzt. Falls noch
+  Zeit bleibt, würde ich noch einen Makefile schreiben. Eigentlich aber gefällt mir mittlerweile
+  Gradele ganz gut, und ich würde gerne generell Pygreadle nutzen (Time Permitting)
+
+- Type Checking im Stack. Der Stack sollte bsiespielsweise sicherstellen, daß er lediglich numerische Werte
+  entgegennimmt. 
+
+- Unit Testing und funktionale Tests: Die Datenstrukturen sind komplett ungetestet. Idealerweise
+  würde man Testdaten generieren, bei denen man Eingaben mit bekanntem Ausgang generiert. 
+
+- Testing Performance: Timing, Eingabegrößen sind ungeprüft. 
+
+- Docstrings.
