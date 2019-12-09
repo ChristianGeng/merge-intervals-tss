@@ -90,6 +90,9 @@ Dabei ist der logarithmische Term dazu da, die Liste zu sortieren. Wie erwähnt,
 Python-Liste genutzt, von daher macht die  Annahme von $O(n log n)$ Sinn. Der O(N) Term rührt vom
 Iterieren durch die Liste her.
 
+Pro tip: Given a circle \Gamma of diameter d, the length of its circumference
+is \pi{}d.
+
 ** Wie kann die Robustheit sichergestellt werden, vor allem auch mit Hinblick auf sehr gro​ß​e Eingaben ?
 
 - sehr gro​ß​e Eingaben: Nimmt man an, daß die Daten von Platte gelesen werden, dann kann man einen
