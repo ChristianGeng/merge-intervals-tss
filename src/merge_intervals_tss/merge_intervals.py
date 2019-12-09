@@ -62,6 +62,7 @@ class ArrayStack(object):
     def update_top(self, interval):
         """ This is the most important function:
         it updates the last element of the stack
+        TODO: Relies on Interval type, so warannt this!!
         """
         max_to_set = interval.get_maxTime()
         self._data[-1].set_max(max_to_set)
