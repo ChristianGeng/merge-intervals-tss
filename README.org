@@ -1,0 +1,114 @@
+#+title: README
+
+* Notes
+
+- Ich habe versucht, das Programm halbwegs lesbar zu halten. Deshalb habe ich eher   
+- In the meantime, I have seen a version of the
+
+* INSTALLATION
+
+Paket abholen:
+
+#+BEGIN_SRC bash
+git clone https://github.com/ChristianGeng/merge-intervals-tss.git
+cd  merge-intervals-tss
+#+END_SRC
+
+Um möglichst schnell fertig zu sein, habe ich zum einen Python genommen und zum anderen das Paket
+[[https://pypi.org/project/PyScaffold/][pyscaffold]]. Dieses ist wie man so sagt `opinionated`, das heisst, es setzt Projektstruktur sowie
+buildscripts in einer dezidierten Art und Weise auf. Der Nachteil ist, daß man das Paket auch im
+Build-Prozeß braucht. Um alles sauber zu halten empfiehlt sich daher eine venv:
+
+Erstellen der venv(Beispiel):
+
+#+BEGIN_SRC bash
+virtualenv ~/.venvs/venv -p /usr/bin/python3.6
+#+END_SRC
+
+Diese aktivieren: 
+
+#+BEGIN_SRC bash
+ source ~/.venvs/venv/bin/activate
+#+END_SRC
+
+Requirements installieren:
+
+#+BEGIN_SRC bash
+pip install -r requirements.txt
+#+END_SRC
+
+Paket installieren:
+
+#+BEGIN_SRC python
+pip install -e .
+#+END_SRC
+
+
+* Usage Example
+
+#+BEGIN_SRC python
+  from merge_intervals_tss.merge_intervals import merge_intervals
+  input_intervals = [[25, 30], [2, 19], [14, 23], [4, 8]]
+  res = merge_intervals(input_intervals)
+  print("RESULT")
+  _ = [print(x) for x in res.as_list()]  # noqa
+#+END_SRC
+
+* Ansatz und Implementation
+
+** Ansatz
+
+Es wurde eine Version implmentiert, die einen Stack als Ausgangsbasis benutzt. Der Algorithmus
+funktioniert folgendermaßen:
+
+1. Sortieren der Intervalle nach Startzeit in aufsteigender Richtung.
+
+2. Schieben Sie das erste Intervall auf einen Stack.
+
+3. Für jedes Intervall der Eingabe:
+   i. Wenn das aktuelle Intervall nicht mit dem obersten Element auf dem Stack überschneidet, dann pushe das Intervall auf den Stack.
+   ii. Wenn (a) das aktuelle Intervall mit dem obersten Element auf dem Stapel überlappt UND (b) das
+   Ende des aktuellen Intervalls größer/später ist als das obersete Element auf dem Stack, dann
+   setze das Ende des obersten Stackelements auf das Ende des aktuellen Elements 
+
+** Implementation
+
+Es wurden zwei Hilfsklassen implementiert. Diese hatte ich im Wesentlichen schon früher.
+
+1. Es wurde eine Klasse `Intervall` im Sinne eines abstrakten Datentyps implementiert. Diese
+   beinhaltet als Daten die Attribute `MinTime` und `MaxTime`.  
+2. Eine Stack-Implmentation. Als zugrundeliegende Datenstruktur für den Stack wird eine herkömmliche
+   Liste verwendet.  Neben `push` und `pop` ist die wesentliche Methode `update_top`, welche es
+   erlaubt, das Top-Element des Stacks in place upzudaten.
+
+* Fragen
+
+** Wie ist die Laufzeit Ihres Programms ?
+
+
+
+** Wie kann die Robustheit sichergestellt werden, vor allem auch mit Hinblick auf sehr gro​ß​e Eingaben ?
+** Wie verhält sich der Speicherverbrauch ihres Programms ?
+
+
+ A O(n Log n) and O(1) Extra Space Solution
+
+
+
+
+# 1. Sort the intervals based on increasing order of 
+#     starting time.
+# 2. Push the first interval on to a stack.
+# 3. For each interval do the following
+#    a. If the current interval does not overlap with the stack 
+#        top, push it.
+#    b. If the current interval overlaps with stack top and ending
+#        time of current interval is more than that of stack top, 
+#        update stack top with the ending  time of current interval.
+# 4. At the end stack contains the merged intervals. 
+
+
+
+* Liste von TODOs:
+
+Ich wollte schnel

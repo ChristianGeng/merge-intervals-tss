@@ -61,7 +61,7 @@ class ArrayStack(object):
 
     def update_top(self, interval):
         """ This is the most important function:
-        it updates the 
+        it updates the last element of the stack
         """
         max_to_set = interval.get_maxTime()
         self._data[-1].set_max(max_to_set)
@@ -81,6 +81,9 @@ class ArrayStack(object):
         for x in self._data:
             data = '['+str(x.minTime)+'-'+str(x.maxTime)+']'
             print(data)
+
+    def as_list(self):
+        return [[x.minTime, x.maxTime] for x in self._data]
 
     def is_empty(self):
         '''Return True if the stack is empty.'''
@@ -107,3 +110,33 @@ class ArrayStack(object):
         if self.is_empty():
             raise Empty("Stack is empty")
         return self._data.pop()
+
+
+def merge_intervals(input_intervals):
+
+    my_stack = ArrayStack()
+    my_stack.push(Interval(input_intervals[0]))
+
+    for two_tuple in input_intervals:
+        current = Interval(two_tuple)
+        # print("current", current)
+        top = my_stack.top()
+        # print("top", top)
+        if not current.overlaps(top):
+            my_stack.push(current)
+        elif (current.overlaps(top)) and (current.get_maxTime() > top.get_maxTime()):
+            my_stack.update_top(current)
+    # print("\nSOLUTION")
+    # my_stack.show_as_list()
+    return my_stack
+
+
+def main():
+    # from merge_intervals_tss.merge_intervals import merge_intervals
+    input_intervals = [[25, 30], [2, 19], [14, 23], [4, 8]]
+    res = merge_intervals(input_intervals)
+    print("RESULT")
+    _ = [print(x) for x in res.as_list()]  # noqa
+
+if __name__ == '__main__':
+   main()
