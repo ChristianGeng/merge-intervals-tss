@@ -87,7 +87,7 @@ Es wurden zwei Hilfsklassen implementiert. Diese hatte ich im Wesentlichen schon
 O(n log n) + O(N).
 
 Dabei ist der logarithmische Term dazu da, die Liste zu sortieren. Wie erwähnt, wir eine
-Python-Liste genutzt, von daher macht die  Annahme von O(n log n) Sinn. Der O(N) Term rührt vom
+Python-Liste genutzt, von daher macht die  Annahme von $O(n log n)$ Sinn. Der O(N) Term rührt vom
 Iterieren durch die Liste her.
 
 ** Wie kann die Robustheit sichergestellt werden, vor allem auch mit Hinblick auf sehr gro​ß​e Eingaben ?
