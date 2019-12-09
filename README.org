@@ -87,11 +87,8 @@ Es wurden zwei Hilfsklassen implementiert. Diese hatte ich im Wesentlichen schon
 O(n log n) + O(N).
 
 Dabei ist der logarithmische Term dazu da, die Liste zu sortieren. Wie erwähnt, wir eine
-Python-Liste genutzt, von daher macht die  Annahme von $O(n log n)$ Sinn. Der O(N) Term rührt vom
+Python-Liste genutzt, von daher macht die  Annahme von O(n log n) Sinn. Der O(N) Term rührt vom
 Iterieren durch die Liste her.
-
-Pro tip: Given a circle \Gamma of diameter d, the length of its circumference
-is \pi{}d.
 
 ** Wie kann die Robustheit sichergestellt werden, vor allem auch mit Hinblick auf sehr gro​ß​e Eingaben ?
 
@@ -107,24 +104,7 @@ is \pi{}d.
 
 ** Wie verhält sich der Speicherverbrauch ihres Programms ?
 
-
- A O(n Log n) and O(1) Extra Space Solution
-
-
-
-
-# 1. Sort the intervals based on increasing order of 
-#     starting time.
-# 2. Push the first interval on to a stack.
-# 3. For each interval do the following
-#    a. If the current interval does not overlap with the stack 
-#        top, push it.
-#    b. If the current interval overlaps with stack top and ending
-#        time of current interval is more than that of stack top, 
-#        update stack top with the ending  time of current interval.
-# 4. At the end stack contains the merged intervals. 
-
- Ohne irgendwelche Optimierungen, also so wie in der momentanen Version benötigt man O(n) im Worst
+ Ohne weitere Optimierungen, also so wie in der momentanen Version benötigt man O(n) im Worst
  case für den Stack und nochmals O(n) für die Eingabedaten. 
 
 * Liste von TODOs:
@@ -136,11 +116,15 @@ Es fehlen einige Punkte zur "Professionlisierung", mindestens folgende Dinge
   Gradele ganz gut, und ich würde gerne generell Pygreadle nutzen (Time Permitting)
 
 - Type Checking im Stack. Der Stack sollte bsiespielsweise sicherstellen, daß er lediglich numerische Werte
-  entgegennimmt. 
+  entgegennimmt. Außerdem funktioniert die Methode 'update_top' lediglich mit einem Typ Interval. Da
+  gäbe es Aufräumbedarf.
 
 - Unit Testing und funktionale Tests: Die Datenstrukturen sind komplett ungetestet. Idealerweise
   würde man Testdaten generieren, bei denen man Eingaben mit bekanntem Ausgang generiert. 
 
 - Testing Performance: Timing, Eingabegrößen sind ungeprüft. 
 
-- Docstrings.
+- Docstrings, besseres Exception Handling und wohl noch mehr.
+
+- Verbesserte Implmentation: ich bin jetzt auf eine Version gestossen, die sich den stack-space
+  sparen kann. Das wäre natürlich schon gut. 
